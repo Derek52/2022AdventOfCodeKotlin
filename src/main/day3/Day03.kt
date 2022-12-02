@@ -1,9 +1,9 @@
-package day2
+package main.day3
 
-import readInput
+import main.readInput
 
 fun main() {
-    val input = readInput("day2/day2")
+    val input = readInput("day3/main.day3")
 
     println(part1(input))
     println(part2(input))

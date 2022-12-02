@@ -1,6 +1,6 @@
-package day1
+package main.day1
 
-import readInput
+import main.readInput
 
 fun main() {
     val input = readInput("day1/day1_part1")
