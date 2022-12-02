@@ -1,9 +1,9 @@
-package main.day3
+package main.day6
 
 import main.readInput
 
 fun main() {
-    val input = readInput("day3/day3")
+    val input = readInput("day6/day6")
 
     //testAlg()
 
