@@ -5,14 +5,14 @@ import main.readInput
 fun main() {
     val input = readInput("day5/day5")
 
-    //testAlg()
 
     val firstHalf = false
+    testAlg(firstHalf)
 
     if (firstHalf) {
-        println(main.day2.part1(input))
+        println(part1(input))
     } else {
-        println(main.day2.part2(input))
+        println(part2(input))
     }
 }
 
@@ -22,4 +22,14 @@ fun part1(input: List<String>) {
 
 fun part2(input: List<String>) {
 
+}
+
+fun testAlg(firstHalf : Boolean) {
+    val input = readInput("day5/day5_test")
+
+    if (firstHalf) {
+        println(part1(input))
+    } else {
+        println(part2(input))
+    }
 }
