@@ -2,7 +2,12 @@
 
 Welcome to the Advent of Code[^aoc] Kotlin project created by [derek52][github] using the [Advent of Code Kotlin Template][template] delivered by JetBrains.
 
-In this repository, derek52 is about to provide solutions for the puzzles using [Kotlin][kotlin] language.
+I'm solving these puzzles using [Kotlin][kotlin]
+
+I'm trying to solve these as fast as possible, while still also writing somewhat decent algorithms.
+
+No code in this repo will be super beautiful though. Especially because I'm actively avoiding using
+built in helpers like collections.sort() methods.
 
 If you're stuck with Kotlin-specific questions or anything related to this template, check out the following resources:
 
