@@ -81,14 +81,15 @@ fun main() {
     stackI.push('S')
 
 
+    val stacks = arrayOf(stackA, stackB, stackC, stackD, stackE, stackF, stackG, stackH, stackI)
 
-    val firstHalf = true
+    val firstHalf = false
     //testAlg(firstHalf)
 
     if (firstHalf) {
-        println(part1(input, arrayOf(stackA, stackB, stackC, stackD, stackE, stackF, stackG, stackH, stackI)))
+        println(part1(input, stacks))
     } else {
-        println(part2(input))
+        println(part2(input, stacks))
     }
 }
 
@@ -113,8 +114,23 @@ data class Command(val move: Int, val from: Int, val to: Int) {
             this(moveString.toInt(), fromString.toInt(), toString.toInt())
 }
 
-fun part2(input: List<String>) {
+fun part2(input: List<String>, stacks: Array<Stack<Char>>) {
+    for (line in input) {
+        val commands = line.split(" ")
+        val command = Command(commands[1], commands[3], commands[5])
+        //println("Command = move: ${command.move}   from: ${command.from}   to: ${command.to}")
+        val moveStack = Stack<Char>()
+        for ( i in 1..command.move) {
+            moveStack.push(stacks[command.from-1].pop())
+        }
+        while(moveStack.isNotEmpty()) {
+            stacks[command.to-1].push(moveStack.pop())
+        }
+    }
 
+    for (stack in stacks) {
+        println(stack.peek())
+    }
 }
 
 fun testAlg(firstHalf : Boolean) {
@@ -135,6 +151,6 @@ fun testAlg(firstHalf : Boolean) {
     if (firstHalf) {
         println(part1(input, arrayOf(stackA, stackB, stackC)))
     } else {
-        println(part2(input))
+        println(part2(input, arrayOf(stackA, stackB, stackC)))
     }
 }
