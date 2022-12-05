@@ -7,78 +7,31 @@ fun main() {
     val input = readInput("day5/day5")
 
     val stackA = Stack<Char>()
-    stackA.push('D')
-    stackA.push('T')
-    stackA.push('W')
-    stackA.push('F')
-    stackA.push('J')
-    stackA.push('S')
-    stackA.push('H')
-    stackA.push('N')
+    stackify(stackA, "DTWFJSHN")
 
     val stackB = Stack<Char>()
-    stackB.push('H')
-    stackB.push('R')
-    stackB.push('P')
-    stackB.push('Q')
-    stackB.push('T')
-    stackB.push('N')
-    stackB.push('B')
-    stackB.push('G')
+    stackify(stackB, "HRPQTNBG")
 
     val stackC = Stack<Char>()
-    stackC.push('L')
-    stackC.push('Q')
-    stackC.push('V')
+    stackify(stackC, "LQV")
 
     val stackD = Stack<Char>()
-    stackD.push('N')
-    stackD.push('B')
-    stackD.push('S')
-    stackD.push('W')
-    stackD.push('R')
-    stackD.push('Q')
+    stackify(stackD, "NBSWRQ")
 
     val stackE = Stack<Char>()
-    stackE.push('N')
-    stackE.push('D')
-    stackE.push('F')
-    stackE.push('T')
-    stackE.push('V')
-    stackE.push('M')
-    stackE.push('B')
+    stackify(stackE, "NDFTVMB")
 
     val stackF = Stack<Char>()
-    stackF.push('M')
-    stackF.push('D')
-    stackF.push('B')
-    stackF.push('V')
-    stackF.push('H')
-    stackF.push('T')
-    stackF.push('R')
+    stackify(stackF, "MDBVHTR")
 
     val stackG = Stack<Char>()
-    stackG.push('D')
-    stackG.push('B')
-    stackG.push('Q')
-    stackG.push('J')
+    stackify(stackG, "DBQJ")
 
     val stackH = Stack<Char>()
-    stackH.push('D')
-    stackH.push('N')
-    stackH.push('J')
-    stackH.push('V')
-    stackH.push('R')
-    stackH.push('Z')
-    stackH.push('H')
-    stackH.push('Q')
+    stackify(stackH, "DNJVRZHQ")
 
     val stackI = Stack<Char>()
-    stackI.push('B')
-    stackI.push('N')
-    stackI.push('H')
-    stackI.push('M')
-    stackI.push('S')
+    stackify(stackI, "BNHMS")
 
 
     val stacks = arrayOf(stackA, stackB, stackC, stackD, stackE, stackF, stackG, stackH, stackI)
@@ -93,20 +46,15 @@ fun main() {
     }
 }
 
-fun part1(input: List<String>, stacks: Array<Stack<Char>>) {
+fun part1(input: List<String>, stacks: Array<Stack<Char>>) : String {
     for (line in input) {
         val commands = line.split(" ")
         val command = Command(commands[1], commands[3], commands[5])
-        //println("Command = move: ${command.move}   from: ${command.from}   to: ${command.to}")
         for ( i in 1..command.move) {
-
             stacks[command.to-1].push(stacks[command.from-1].pop())
         }
     }
-
-    for (stack in stacks) {
-        println(stack.peek())
-    }
+    return printStackTops(stacks)
 }
 
 data class Command(val move: Int, val from: Int, val to: Int) {
@@ -114,11 +62,11 @@ data class Command(val move: Int, val from: Int, val to: Int) {
             this(moveString.toInt(), fromString.toInt(), toString.toInt())
 }
 
-fun part2(input: List<String>, stacks: Array<Stack<Char>>) {
+fun part2(input: List<String>, stacks: Array<Stack<Char>>) : String {
     for (line in input) {
         val commands = line.split(" ")
         val command = Command(commands[1], commands[3], commands[5])
-        //println("Command = move: ${command.move}   from: ${command.from}   to: ${command.to}")
+
         val moveStack = Stack<Char>()
         for ( i in 1..command.move) {
             moveStack.push(stacks[command.from-1].pop())
@@ -127,23 +75,30 @@ fun part2(input: List<String>, stacks: Array<Stack<Char>>) {
             stacks[command.to-1].push(moveStack.pop())
         }
     }
+    return printStackTops(stacks)
+}
 
-    for (stack in stacks) {
-        println(stack.peek())
+fun stackify(stack: Stack<Char>, items: String) {
+    for (char in items) {
+        stack.push(char)
     }
 }
 
+fun printStackTops(stacks: Array<Stack<Char>>) : String {
+    val stringBuilder = StringBuilder()
+    for (stack in stacks) {
+        stringBuilder.append(stack.peek())
+    }
+    return stringBuilder.toString()
+}
 fun testAlg(firstHalf : Boolean) {
     val input = readInput("day5/day5_test")
 
     val stackA = Stack<Char>()
-    stackA.push('Z')
-    stackA.push('N')
+    stackify(stackA, "ZN")
 
     val stackB = Stack<Char>()
-    stackB.push('M')
-    stackB.push('C')
-    stackB.push('D')
+    stackify(stackB, "MCD")
 
     val stackC = Stack<Char>()
     stackC.push('P')

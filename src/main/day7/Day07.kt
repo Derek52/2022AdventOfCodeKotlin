@@ -6,7 +6,7 @@ fun main() {
     val input = readInput("day7/day7")
 
 
-    val firstHalf = false
+    val firstHalf = true
     testAlg(firstHalf)
 
     if (firstHalf) {
