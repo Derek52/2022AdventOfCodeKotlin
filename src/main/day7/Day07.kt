@@ -7,7 +7,7 @@ import kotlin.collections.HashSet
 fun main() {
     val input = readInput("day7/day7")
 
-    val firstHalf = true
+    val firstHalf = false
     testAlg(firstHalf)
 
     if (firstHalf) {
@@ -76,7 +76,7 @@ fun sumDirectories(directory: Directory, sums: MutableList<Long>, visit: HashSet
         return 0
     }
     if (directory.children.isEmpty()) {
-        println("${directory.name} has size ${directory.size}")
+        //println("${directory.name} has size ${directory.size}")
         return directory.size
     }
 
@@ -84,14 +84,58 @@ fun sumDirectories(directory: Directory, sums: MutableList<Long>, visit: HashSet
     for (child in directory.children) {
         directory.size += sumDirectories(child, sums,  visit)
     }
-    println("${directory.name} has size ${directory.size}")
+    //println("${directory.name} has size ${directory.size}")
     return directory.size
 }
 
 
 
-fun part2(input: List<String>) {
+fun part2(input: List<String>) : Long {
+    var currentDirectory = Directory("/")
+    val directoryList = mutableListOf<Directory>(currentDirectory)
+    val rootNode = currentDirectory
+    val previousDirectoryStack = Stack<Directory>()
+    previousDirectoryStack.push(currentDirectory)
+    for (line in input) {
+        val command = line.split(" ")
+        if (command[0] == "$") {
+            if (command[1] == "cd") {
+                if (command[2] == "..") {
+                    currentDirectory = previousDirectoryStack.pop()
+                } else {
+                    currentDirectory = Directory(command[2])
+                    directoryList.add(currentDirectory)
+                    previousDirectoryStack.peek().children.add(currentDirectory)
+                    previousDirectoryStack.push(currentDirectory)
+                }
+            } else if(command[1] == "ls") {
+            }
+        } else if (command[0] == "dir"){
+        } else {
+            currentDirectory.size += command[0].toLong()
+        }
+    }
 
+    val sums = mutableListOf<Long>()
+
+    sumDirectories(rootNode, sums, HashSet())
+
+
+    var totalSum = rootNode.size
+    val space = 70000000 - totalSum
+    val neededSpace = 30000000 - space
+
+    var minDelete = totalSum
+
+    for (directory in directoryList) {
+        if (directory.size >= neededSpace) {
+            if (directory.size <= minDelete) {
+                minDelete = directory.size
+            }
+        }
+    }
+
+    return minDelete
 }
 
 fun testAlg(firstHalf : Boolean) {
